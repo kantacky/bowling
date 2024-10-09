@@ -30,15 +30,15 @@ pub fn get_frame_score(s: &str) -> (i32, i32) {
     let mut scores: (i32, i32) = (-1, -1);
     for c in s.chars() {
         let score = get_score(c);
-        if score >= 0 {
-            if scores.0 >= 0 {
-                scores.1 = score;
-            } else {
-                scores.0 = score;
-            }
-        } else {
+        if score < 0 {
             scores.1 = 10 - scores.0;
+            continue;
         }
+        if scores.0 >= 0 {
+            scores.1 = score;
+            continue;
+        }
+        scores.0 = score;
     }
     return scores;
 }
